@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дижитал өдрийн тэмдэглэл</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .top-navbar { background-color: #1a1e21; color: white; padding: 12px 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-navbar d-flex justify-content-between align-items-center shadow-sm">
+        <div class="fw-bold">
+            <i class="fa-solid fa-book-journal-whills text-warning me-2"></i> Дижитал өдрийн тэмдэглэл
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <span id="user-email" class="small text-light fw-medium"></span>
+            <button id="btn-logout" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Гарах</button>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-4 px-4 pb-5">
+        <div class="row g-4">
+            <!-- Шинэ тэмдэглэл нэмэх хэсэг -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm p-3">
+                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-pen-nib me-2 text-primary"></i>Шинэ тэмдэглэл</h5>
+                    <form id="entry-form">
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Огноо</label>
+                            <input type="date" class="form-control" id="entry-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Өнөөдрийн сэтгэл хөдлөл</label>
+                            <div class="mood-picker" id="mood-picker">
+                                <button type="button" class="mood-btn" data-mood="😊">😊</button>
+                                <button type="button" class="mood-btn" data-mood="😍">😍</button>
+                                <button type="button" class="mood-btn" data-mood="😐">😐</button>
+                                <button type="button" class="mood-btn" data-mood="😢">😢</button>
+                                <button type="button" class="mood-btn" data-mood="😡">😡</button>
+                                <button type="button" class="mood-btn" data-mood="😴">😴</button>
+                                <button type="button" class="mood-btn" data-mood="😨">😨</button>
+                            </div>
+                            <input type="hidden" id="entry-mood" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Гарчиг</label>
+                            <input type="text" class="form-control" id="entry-title" placeholder="Гарчиг бичих (заавал биш)">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Тэмдэглэл</label>
+                            <textarea class="form-control" id="entry-content" rows="5" required placeholder="Өнөөдөр юу боллоо?"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Зураг нэмэх (заавал биш)</label>
+                            <input type="file" class="form-control" id="entry-image" accept="image/*">
+                            <img id="image-preview" class="mt-2 rounded d-none" style="max-height:140px; object-fit:cover;">
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100 fw-semibold py-2">
+                            <i class="fa-solid fa-plus me-1"></i> Тэмдэглэл хадгалах
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Тэмдэглэлүүдийг унших хэсэг -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i>Миний тэмдэглэлүүд</h5>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-dark active" id="view-cards-btn">
+                                <i class="fa-solid fa-grip me-1"></i>Картууд
+                            </button>
+                            <button type="button" class="btn btn-outline-dark" id="view-calendar-btn">
+                                <i class="fa-solid fa-calendar-days me-1"></i>Хуанли
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Карт харагдац -->
+                    <div id="cards-view">
+                        <div class="row g-3" id="entries-list"></div>
+                    </div>
+
+                    <!-- Хуанли харагдац -->
+                    <div id="calendar-view" class="d-none">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <button class="btn btn-sm btn-outline-secondary" id="cal-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                            <h6 class="fw-bold mb-0" id="cal-month-label"></h6>
+                            <button class="btn btn-sm btn-outline-secondary" id="cal-next"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-grid mb-2">
+                            <div class="calendar-weekday">Ням</div>
+                            <div class="calendar-weekday">Дав</div>
+                            <div class="calendar-weekday">Мяг</div>
+                            <div class="calendar-weekday">Лха</div>
+                            <div class="calendar-weekday">Пүр</div>
+                            <div class="calendar-weekday">Баа</div>
+                            <div class="calendar-weekday">Бям</div>
+                        </div>
+                        <div class="calendar-grid" id="calendar-days"></div>
+                        <hr>
+                        <div id="calendar-day-entries"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Засах Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-pen me-2"></i>Тэмдэглэл засах</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="edit-entry-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="edit-id">
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Огноо</label>
+                            <input type="date" class="form-control" id="edit-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Сэтгэл хөдлөл</label>
+                            <div class="mood-picker" id="edit-mood-picker">
+                                <button type="button" class="mood-btn" data-mood="😊">😊</button>
+                                <button type="button" class="mood-btn" data-mood="😍">😍</button>
+                                <button type="button" class="mood-btn" data-mood="😐">😐</button>
+                                <button type="button" class="mood-btn" data-mood="😢">😢</button>
+                                <button type="button" class="mood-btn" data-mood="😡">😡</button>
+                                <button type="button" class="mood-btn" data-mood="😴">😴</button>
+                                <button type="button" class="mood-btn" data-mood="😨">😨</button>
+                            </div>
+                            <input type="hidden" id="edit-mood-value" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Гарчиг</label>
+                            <input type="text" class="form-control" id="edit-title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Тэмдэглэл</label>
+                            <textarea class="form-control" id="edit-content" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Цуцлах</button>
+                        <button type="submit" class="btn btn-primary fw-semibold"><i class="fa-solid fa-floppy-disk me-1"></i>Хадгалах</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

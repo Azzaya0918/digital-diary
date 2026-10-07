@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --pink-50:  #fff5f8;
+    --pink-100: #ffe4ec;
+    --pink-200: #ffc9dc;
+    --pink-300: #ffa3c4;
+    --pink-400: #ff7aa8;
+    --pink-500: #f5578e;
+    --pink-600: #e13d76;
+    --pink-700: #c22961;
+    --rose-text: #6b3f52;
+    --rose-muted: #a97b91;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.roboto-regular,
+body {
+    font-family: "Quicksand", "Poppins", sans-serif;
+    color: var(--rose-text);
+}
+
+body {
+    background: linear-gradient(160deg, var(--pink-50) 0%, #fff 45%, var(--pink-100) 100%);
+    min-height: 100vh;
+}
+
+/* --- Нэвтрэх хуудас --- */
+body:has(#auth-form) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+body:has(#auth-form) .card {
+    border: 1px solid var(--pink-200);
+    background: #fffdfe;
+}
+body:has(#auth-form) .card-title {
+    color: var(--pink-600) !important;
+}
+body:has(#auth-form) .btn-primary {
+    background: linear-gradient(135deg, var(--pink-400), var(--pink-600));
+    border: none;
+}
+body:has(#auth-form) .btn-primary:hover,
+body:has(#auth-form) .btn-primary:focus {
+    background: linear-gradient(135deg, var(--pink-500), var(--pink-700));
+}
+body:has(#auth-form) .btn-outline-secondary {
+    color: var(--pink-600);
+    border-color: var(--pink-300);
+}
+body:has(#auth-form) .btn-outline-secondary:hover {
+    background: var(--pink-100);
+    color: var(--pink-700);
+    border-color: var(--pink-300);
+}
+body:has(#auth-form) .form-control:focus {
+    border-color: var(--pink-400);
+    box-shadow: 0 0 0 .2rem rgba(245, 87, 142, .18);
+}
+
+/* --- Дашбоард ерөнхий --- */
+.top-navbar {
+    background: linear-gradient(120deg, var(--pink-600), var(--pink-400)) !important;
+    color: #fff;
+}
+.top-navbar .btn-outline-light:hover {
+    background: rgba(255,255,255,.2);
+}
+
+.card {
+    border-radius: 16px;
+}
+.card.border-0.shadow-sm {
+    border: 1px solid var(--pink-100) !important;
+}
+
+.btn-dark {
+    background: linear-gradient(135deg, var(--pink-500), var(--pink-700));
+    border: none;
+}
+.btn-dark:hover, .btn-dark:focus {
+    background: linear-gradient(135deg, var(--pink-600), var(--pink-700));
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--pink-400), var(--pink-600));
+    border: none;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(135deg, var(--pink-500), var(--pink-700));
+}
+
+.btn-outline-primary {
+    color: var(--pink-600);
+    border-color: var(--pink-300);
+}
+.btn-outline-primary:hover {
+    background: var(--pink-500);
+    border-color: var(--pink-500);
+}
+
+.btn-outline-dark {
+    color: var(--rose-text);
+    border-color: var(--pink-300);
+}
+.btn-outline-dark.active,
+.btn-outline-dark:hover {
+    background: var(--pink-500);
+    border-color: var(--pink-500);
+    color: #fff;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--pink-400);
+    box-shadow: 0 0 0 .2rem rgba(245, 87, 142, .18);
+}
+
+h5, h6 {
+    color: var(--rose-text);
+}
+
+/* --- Mood сонгох товчнууд --- */
+.mood-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.mood-btn {
+    border: 1.5px solid var(--pink-200);
+    background: #fff;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .15s ease;
+}
+.mood-btn:hover {
+    border-color: var(--pink-400);
+    transform: translateY(-2px);
+}
+.mood-btn.active {
+    border-color: var(--pink-500);
+    background: var(--pink-100);
+    box-shadow: 0 0 0 2px rgba(245, 87, 142, .25);
+}
+
+/* --- Тэмдэглэлийн карт --- */
+.entry-card {
+    border-radius: 16px;
+    border: 1px solid var(--pink-100) !important;
+    box-shadow: 0 2px 10px rgba(245, 87, 142, .08);
+    overflow: hidden;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.entry-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(245, 87, 142, .16);
+}
+.entry-card .entry-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+.entry-mood-badge {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+/* --- Хуанли харагдац --- */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+.calendar-day {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--pink-100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    cursor: pointer;
+    position: relative;
+    color: var(--rose-text);
+}
+.calendar-day.empty { background: transparent; border: none; cursor: default; }
+.calendar-day.has-entry { border-color: var(--pink-400); background: var(--pink-50); font-weight: 700; }
+.calendar-day.selected { background: var(--pink-500); color: #fff; border-color: var(--pink-500); }
+.calendar-day .day-mood { font-size: 1rem; margin-top: 2px; }
+.calendar-weekday {
+    text-align: center;
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--rose-muted);
+}
+
+/* ============================================================
+   RESPONSIVE — утас / таблет / компьютер 3 хэмжээст тохируулга
+   ============================================================ */
+
+/* Утас (phone): 575px хүртэл */
+@media (max-width: 575.98px) {
+    .top-navbar {
+        padding: 10px 14px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .top-navbar .fw-bold {
+        font-size: .95rem;
+    }
+    .container-fluid.mt-4 {
+        margin-top: 16px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    .card.border-0.shadow-sm,
+    body:has(#auth-form) .card {
+        padding: 16px !important;
+        border-radius: 14px;
+    }
+    .mood-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+    .entry-card .entry-img {
+        height: 130px;
+    }
+    .btn-group-sm .btn {
+        font-size: .75rem;
+        padding: .3rem .5rem;
+    }
+    .calendar-day {
+        font-size: .65rem;
+        border-radius: 8px;
+    }
+    .calendar-day .day-mood {
+        font-size: .8rem;
+    }
+    #user-email {
+        display: none; /* маш нарийн дэлгэц дээр орон зай хэмнэх */
+    }
+}
+
+/* Таблет: 576px - 991px */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .container-fluid.mt-4 {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    .mood-btn {
+        width: 48px;
+        height: 48px;
+    }
+    .entry-card .entry-img {
+        height: 150px;
+    }
+}
+
+/* Компьютер / том дэлгэц: 992px-с дээш */
+@media (min-width: 992px) {
+    .container-fluid.mt-4 {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
+}
